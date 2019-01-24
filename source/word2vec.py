@@ -10,7 +10,7 @@ file = sys.argv[2]
 # --------------------- main --------------------
 def main(wd, file):
 
-	word2vec(wd, file, load_csv, size = 100, window = 5, min_count = 0, workers = 4)
+	word2vec(wd, file, load_json, size = 100, window = 5, min_count = 0, workers = 4)
 
 # -------------------- iterator -----------------
 class SentencesIterator():
@@ -47,9 +47,13 @@ def load_csv(file):
 # ------------------- preprocess -----------------
 def preprocess(filestream):
 
+	from gensim.parsing.porter import PorterStemmer
+
+	p = PorterStemmer()
+
 	for line in filestream:
 
-		yield gensim.utils.simple_preprocess(line)
+		yield p.stem_documents(gensim.utils.simple_preprocess(line))
 
 # ------------------- word2vec --------------------
 def word2vec(wd, file, load_func, size = 100, window = 5, min_count = 2, workers = 4):
