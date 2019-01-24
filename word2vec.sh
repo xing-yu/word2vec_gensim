@@ -1,0 +1,1 @@
+python3 source/word2vec.py /Users/Xing/Documents/GitHub/word2vec_gensim/data text.csv
