@@ -1,1 +1,1 @@
-python3 source/word2vec.py ./data /home/yu64/Documents/IdentificationProjectNeo/data/comments.txt
+python3 source/word2vec.py ./data /home/yu64/Documents/IdentificationProjectNeo/baselines/data/user_text.txt
