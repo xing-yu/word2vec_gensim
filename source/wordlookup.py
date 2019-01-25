@@ -14,14 +14,16 @@ label_list_file = sys.argv[5]
 # ---------------- load wv -----------------
 def load(file):
 
-	return wv = gensim.models.KeyedVectors.load(file, mmap='r')
+	wv = gensim.models.KeyedVectors.load(file, mmap='r')
+
+	return wv
 
 # -------------- text to vec ---------------
 def text2vec(text, wv):
 
 	p = gensim.parsing.porter.PorterStemmer()
 
-	total = np.zeros((1, 100), dtype = float32)
+	total = np.zeros((1, 100), dtype = np.float32)
 
 	word_count = 0
 
@@ -33,7 +35,7 @@ def text2vec(text, wv):
 
 			total += wv[word]
 
-			count += 1
+			word_count += 1
 
 		else:
 
@@ -57,9 +59,9 @@ def gen_word2vec_features(documents_file, word2vec_file, wd, label_file, label_l
 
 	for line in f:
 
-		username = line.strip().split(',')
+		username = line.strip().split(',')[0]
 
-		label = line.strip().split(',')
+		label = line.strip().split(',')[1]
 
 		labels[username] = label
 
@@ -77,7 +79,7 @@ def gen_word2vec_features(documents_file, word2vec_file, wd, label_file, label_l
 
 	label_list = open(label_list_file, 'w')
 
-	ret = None
+	ret = np.nan
 
 	for line in f:
 
@@ -93,13 +95,13 @@ def gen_word2vec_features(documents_file, word2vec_file, wd, label_file, label_l
 
 		user_vec = text2vec(text, wv)
 
-		if not ret:
+		if np.isnan(ret) == True:
 
 			ret = user_vec
 
 		else:
 
-			ret = np.vstack(ret, user_vec)
+			ret = np.vstack((ret, user_vec))
 
 		label_list.write(labels[username])
 		label_list.write('\n')
