@@ -5,7 +5,13 @@ import gensim
 import os
 import numpy as np
 
-# ---------------- load wv ----------------
+wd = sys.argv[1]
+documents_file = sys.argv[2] 
+word2vec_file = sys.argv[3]
+label_file = sys.argv[4]
+label_list_file = sys.argv[5]
+
+# ---------------- load wv -----------------
 def load(file):
 
 	return wv = gensim.models.KeyedVectors.load(file, mmap='r')
@@ -102,10 +108,10 @@ def gen_word2vec_features(documents_file, word2vec_file, wd, label_file, label_l
 	f.close()
 	label_list.close()
 
-	np.save("features", ret)
+	np.save("features_word2vec", ret)
 
-
-
+# ----------------- call -------------------
+gen_word2vec_features(documents_file, word2vec_file, wd, label_file, label_list_file)
 
 
 
