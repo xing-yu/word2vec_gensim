@@ -10,7 +10,7 @@ file = sys.argv[2]
 # --------------------- main --------------------
 def main(wd, file):
 
-	word2vec(wd, file, load_json, size = 100, window = 5, min_count = 0, workers = 4)
+	word2vec(wd, file, load_csv, size = 100, window = 5, min_count = 0, workers = 4)
 
 # -------------------- iterator -----------------
 class SentencesIterator():
