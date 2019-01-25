@@ -79,7 +79,7 @@ def gen_word2vec_features(documents_file, word2vec_file, wd, label_file, label_l
 
 	label_list = open(label_list_file, 'w')
 
-	ret = np.nan
+	firstline = True
 
 	for line in f:
 
@@ -95,9 +95,11 @@ def gen_word2vec_features(documents_file, word2vec_file, wd, label_file, label_l
 
 		user_vec = text2vec(text, wv)
 
-		if np.isnan(ret) == True:
+		if firstline == True:
 
 			ret = user_vec
+
+			firstline = False
 
 		else:
 
